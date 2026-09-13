@@ -1,0 +1,19 @@
+<div class="card mt-4 shadow">
+    <div class="d-flex align-items-center">
+        <div class="card-body">
+            <h5 class="card-title">{{nombreProducto().toUpperCase()}}</h5>
+            <p class="card-text">{{descripcion()}}</p>
+            <p class="card-text">S/ {{precio()}}</p>
+            <img [src]="imagenProducto()" style="width: 120px; height:auto"/>
+            <br />
+            @if(sinStock()){
+                <p class="text-danger">Fuera de stock</p>
+            }@else {
+                <p class="text-success">Disponible</p>
+            }
+            <br />
+            <button class="btn btn-primary" (click)="enviarMensaje()"
+            [disabled]="sinStock()">Agregar</button>
+        </div>
+    </div>
+</div>
