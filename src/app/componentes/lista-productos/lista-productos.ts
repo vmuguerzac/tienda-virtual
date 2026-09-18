@@ -3,6 +3,7 @@ import { CartillaProducto } from '../cartilla-producto/cartilla-producto';
 import { Producto } from '../../modelos/Producto';
 import { ItemCarrito } from '../../modelos/ItemCarrito';
 import { ProductoDataService } from '../../servicios/producto-data.service';
+import { CarritoService } from '../../servicios/carrito.service';
 
 @Component({
   selector: 'app-lista-productos',
@@ -14,7 +15,8 @@ export class ListaProductos implements OnInit {
   productos:Producto[] = []
   carrito:ItemCarrito[] = []
 
-  constructor(private productoDataService:ProductoDataService){
+  constructor(private productoDataService:ProductoDataService,
+    private carritoService:CarritoService){
 
   }
 
@@ -23,8 +25,7 @@ export class ListaProductos implements OnInit {
   }
 
   agregarProductoAlCarrito(itemCarrito:ItemCarrito):void {
-    this.carrito.push(itemCarrito);
-    console.log("Agregado al carrito", itemCarrito);
+    this.carritoService.agregarProductoAlCarrito(itemCarrito);
   }
 
 }
