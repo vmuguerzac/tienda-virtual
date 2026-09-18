@@ -1,4 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { Producto } from '../../modelos/Producto';
+import { ItemCarrito } from '../../modelos/ItemCarrito';
 
 @Component({
   selector: 'app-cartilla-producto',
@@ -7,15 +9,15 @@ import { Component, input } from '@angular/core';
   styleUrl: './cartilla-producto.css',
 })
 export class CartillaProducto {
-    id = input.required<number>();
-    nombreProducto = input.required<string>();
-    descripcion = input<string>();
-    precio = input.required<number>();
-    sinStock = input.required<boolean>();
-    imagenProducto = input<string>();
+    productoAMostrar = input.required<Producto>();
+    cantidad:number = 1;
+    // Producto a agregar al carrito - output
+    agregarAlCarrito = output<ItemCarrito>();
   
-  enviarMensaje():void{
-    console.log("Producto se va a agregar a carrito");
-  }
+    onAgregarAlCarrito():void {
+      this.agregarAlCarrito.emit(
+        {producto: this.productoAMostrar(), cantidad:this.cantidad}
+      );
+    }
   
 }

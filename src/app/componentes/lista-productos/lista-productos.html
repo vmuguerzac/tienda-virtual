@@ -1,11 +1,8 @@
 <h2>Productos</h2>
 @for(producto of productos; track producto.id){
     <app-cartilla-producto
-        [id]="producto.id"
-        [nombreProducto]="producto.nombreProducto"
-        [descripcion]="producto.descripcion"
-        [precio] = "producto.precio"
-        [sinStock]="producto.sinStock"
-        [imagenProducto]="producto.imagenProducto">
+        [productoAMostrar]="producto"
+        (agregarAlCarrito)="agregarProductoAlCarrito($event)"
+        >
     </app-cartilla-producto>
 }
