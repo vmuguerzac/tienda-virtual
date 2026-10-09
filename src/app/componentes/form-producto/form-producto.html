@@ -1,0 +1,44 @@
+<div class="card shadow-sm p-4 mx-auto" style="max-width: 560px">
+    <h2 class="h4 mb-3">{{ idEditar ? 'Editar producto' : 'Nuevo producto' }}</h2>
+
+    @if(error()){
+        <div class="alert alert-danger">{{ error() }}</div>
+    }
+
+    <form #formulario="ngForm" (ngSubmit)="guardarProducto()">
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombreProducto"
+                [(ngModel)]="nuevoProducto().nombreProducto" required #nombre="ngModel"
+                [class.is-invalid]="nombre.invalid && nombre.touched">
+            <div class="invalid-feedback">El nombre es obligatorio</div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" rows="3"
+                [(ngModel)]="nuevoProducto().descripcion" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Precio (S/)</label>
+            <input type="number" class="form-control" name="precio" step="0.01"
+                [(ngModel)]="nuevoProducto().precio" required min="0.01">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">URL de la imagen</label>
+            <input type="url" class="form-control" name="imagenProducto"
+                [(ngModel)]="nuevoProducto().imagenProducto">
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="sinStock" name="sinStock"
+                [(ngModel)]="nuevoProducto().sinStock">
+            <label class="form-check-label" for="sinStock">Sin stock</label>
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"
+                [disabled]="formulario.invalid || guardando()">
+                {{ guardando() ? 'Guardando...' : 'Guardar' }}
+            </button>
+            <a class="btn btn-outline-secondary" routerLink="/productos">Cancelar</a>
+        </div>
+    </form>
+</div>

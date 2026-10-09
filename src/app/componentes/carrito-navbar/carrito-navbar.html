@@ -1,3 +1,15 @@
-<nav class="navbar navbar-dark bg-dark px-3">
-    <span class="navbar-text text-white">🛒 Carrito {{cantidadEnCarrito$ | async }}</span> 
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3">
+    <a class="navbar-brand fw-bold" routerLink="/productos">🛍️ Tienda Virtual</a>
+    <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/productos" routerLinkActive="active">Productos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/productos/nuevo" routerLinkActive="active">Nuevo Producto</a>
+        </li>
+    </ul>
+    <div class="d-flex align-items-center gap-3">
+        <a class="btn btn-outline-light btn-sm" routerLink="/carrito">🛒 Carrito <span class="badge bg-warning text-dark">{{cantidadEnCarrito$ | async }}</span> </a>
+    </div>
+    
 </nav>

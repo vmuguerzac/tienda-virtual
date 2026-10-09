@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #f6f7fb;
+}
+
+.card-producto {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-producto:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
+}/* You can add global styles to this file, and also import other style files */

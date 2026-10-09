@@ -1,8 +1,27 @@
-<h2>Productos</h2>
-@for(producto of productos; track producto.id){
-    <app-cartilla-producto
-        [productoAMostrar]="producto"
-        (agregarAlCarrito)="agregarProductoAlCarrito($event)"
-        >
-    </app-cartilla-producto>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <h2 class="mb-0">Productos</h2>
+    <form class="d-flex gap-2" (ngSubmit)="buscar()">
+        <input class="form-control" name="q" placeholder="Buscar producto..." [(ngModel)]="busqueda">
+        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+    </form>
+</div>
+@if(cargando()){
+    <p class="text-muted">Cargando Productos...</p>
 }
+@if(error()){
+    <div class="alert alert-danger">{{error()}}</div>
+}
+@if(!cargando() && !error() && productos().length === 0){
+    <div class="alert alert-info">No se encontraron productos</div>
+}
+<div class="row g-4">
+    @for(producto of productos(); track producto.id){
+        <div class="col-12 col-sm-6 col-lg-3">
+            <app-cartilla-producto
+                [productoAMostrar]="producto"
+                (agregarAlCarrito)="agregarProductoAlCarrito($event)"
+                >
+            </app-cartilla-producto>
+        </div>
+    }
+</div>

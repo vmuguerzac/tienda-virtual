@@ -1,19 +1,24 @@
-<div class="card mt-4 shadow">
-    <div class="d-flex align-items-center">
-        <div class="card-body">
-            <h5 class="card-title">{{productoAMostrar().nombreProducto.toUpperCase()}}</h5>
-            <p class="card-text">{{productoAMostrar().descripcion}}</p>
-            <p class="card-text">S/ {{productoAMostrar().precio}}</p>
-            <img [src]="productoAMostrar().imagenProducto" style="width: 120px; height:auto"/>
-            <br />
-            @if(productoAMostrar().sinStock){
-                <p class="text-danger">Fuera de stock</p>
-            }@else {
-                <p class="text-success">Disponible</p>
-            }
-            <br />
-            <button class="btn btn-primary" (click)="onAgregarAlCarrito()"
-            [disabled]="productoAMostrar().sinStock">Agregar</button>
+<div class="card h-100 shadow-sm card-producto">
+    <img class="card-img-top p-3" [src]="productoAMostrar().imagenProducto || 'https://placehold.co/300x200?text=Sin+imagen'"
+        [alt]="productoAMostrar().nombreProducto">
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{productoAMostrar().nombreProducto.toUpperCase()}}</h5>
+        <p class="card-text text-muted small flex-grow-1">
+            {{productoAMostrar().descripcion}}
+        </p>
+        <p class="fs-5 fw-bold mb-1">{{productoAMostrar().precio | currency: 'PEN':'S/ '}}</p>
+        @if(productoAMostrar().sinStock){
+            <span class="badge bg-danger mb-3 align-self-start">Fuera de stock</span>
+        }@else {
+            <span class="badge bg-success mb-3 align-self-start">Disponible</span>
+        }
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary btn-sm" [routerLink]="['/productos', productoAMostrar().id]">
+                Ver detalle
+            </a>
+            <button class="btn btn-primary btn-sm" (click)="onAgregarAlCarrito()"
+        [disabled]="productoAMostrar().sinStock">Agregar</button>
         </div>
+        
     </div>
 </div>

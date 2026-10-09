@@ -5,4 +5,7 @@ export interface Producto {
     precio:number;
     sinStock:boolean;
     imagenProducto:string;
+    categoriaId:number|null;
 }
+
+export type ProductoRequest = Omit<Producto, 'id'>;

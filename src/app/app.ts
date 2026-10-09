@@ -4,10 +4,11 @@ import { CartillaProducto } from './componentes/cartilla-producto/cartilla-produ
 import { ListaProductos } from "./componentes/lista-productos/lista-productos";
 import { ProductoDetalle } from './componentes/producto-detalle/producto-detalle';
 import { CarritoNavbar } from './componentes/carrito-navbar/carrito-navbar';
+import { FormProducto } from './componentes/form-producto/form-producto';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ListaProductos, ProductoDetalle, CarritoNavbar],
+  imports: [RouterOutlet, CarritoNavbar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

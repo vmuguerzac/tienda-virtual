@@ -1,47 +1,36 @@
 import { Injectable } from '@angular/core';
-import { Producto } from '../modelos/Producto';
+import { Producto, ProductoRequest } from '../modelos/Producto';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Pagina } from '../modelos/Pagina';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductoDataService {
-  private productos:Producto[] = [
-    {
-      id: 1,
-      nombreProducto: "Audífonos Inalámbricos",
-      descripcion: "Estos audífonos son de alta fidelidad con sonido claro.",
-      precio: 199.90,
-      sinStock: false,
-      imagenProducto: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.-9Mnt3gM1lzXw-x5JZ6begHaHa%3Fpid%3DApi&f=1&ipt=e119ecafd607b9f8b10e5822d3f608f167568caaf6ad1287428389ade920b9f8"
-    },
-    {
-      id: 2,
-      nombreProducto: "Macbook Pro m2",
-      descripcion: "Laptop de apple de gran performance.",
-      precio: 7000.90,
-      sinStock: false,
-      imagenProducto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmsQA4b_YpcKQibhOEcPe8fLXr7u-S0u29CzuLVhGKaXvqh13zTXh6JVuF&s=10"
-    },
-    {
-      id: 3,
-      nombreProducto: "Galaxy tab s10",
-      descripcion: "Tablet de 10 pulgadas de gran performance.",
-      precio: 1200.90,
-      sinStock: false,
-      imagenProducto: "https://oechsle.vteximg.com.br/arquivos/ids/22378542-1000-1000/imageUrl_1.jpg?v=638948974016330000"
+  private readonly baseurl = `${environment.apiUrl}/productos`;
+
+  constructor(private http:HttpClient){ }
+
+  //GET /api/productos?page=0&size=8&nombre=....
+  obtenerProductos(pagina:number, tamanio:number, nombre=''):Observable<Pagina<Producto>>{
+    let params = new HttpParams().set('page', pagina).set('size', tamanio);
+    if(nombre){
+      params = params.set('nombre', nombre);
     }
-  ]
-
-  obtenerProductos():Producto[]{
-    return this.productos;
+    return this.http.get<Pagina<Producto>>(this.baseurl, {params});
   }
 
-  obtenerPorId(id:number):Producto | undefined {
-    return this.productos.find(producto=> producto.id === id);
+  obtenerPorId(id:number):Observable<Producto> {
+    return this.http.get<Producto>(`${this.baseurl}/${id}`);
   }
 
-  agregarProducto(producto:Producto):void {
-    producto.id = this.productos.length + 1;
-    this.productos.push(producto);
+  agregarProducto(producto:ProductoRequest):Observable<Producto> {
+    return this.http.post<Producto>(this.baseurl, producto);
+  }
+
+  actualizarProducto(id:number, producto:ProductoRequest):Observable<Producto> {
+    return this.http.put<Producto>(`${this.baseurl}/${id}`, producto);
   }
 }

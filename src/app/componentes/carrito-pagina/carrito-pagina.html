@@ -1,0 +1,44 @@
+<h2 class="mb-4">Mi Carrito</h2>
+@if(carritoService.items$ | async; as items){
+    @if(items.length === 0){
+        <div class="alert alert-info">
+            Tu carrito está vacío. <a routerLink="/productos">Ver productos</a>
+        </div>
+    }@else {
+        <div class="card shadow-sm">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Producto</th>
+                        <th class="text-center">Cantidad</th>
+                        <th class="text-end">Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(item of items; track item.producto.id){
+                        <tr>
+                            <td>{{ item.producto.nombreProducto }}</td>
+                            <td class="text-center">{{ item.cantidad }}</td>
+                            <td class="text-end">{{ item.producto.precio * item.cantidad | currency:'PEN':'S/ ' }}</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-danger"
+                                    (click)="carritoService.quitarProducto(item.producto.id)">Quitar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="fw-bold">
+                        <td colspan="2">Total</td>
+                        <td class="text-end">{{ carritoService.total$ | async | currency:'PEN':'S/ ' }}</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <button class="btn btn-outline-secondary mt-3" (click)="carritoService.vaciar()">Vaciar carrito</button>
+    }
+}
+
+
