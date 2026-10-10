@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: "https://tienda-api-ituj.onrender.com/api",
+    apiUrl: "https://tienda-api-z2fw.onrender.com",
 };
